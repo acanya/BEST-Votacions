@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BESTVotacions/BESTVotacions.iml" filepath="$PROJECT_DIR$/BESTVotacions/BESTVotacions.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BESTVotacions-master.iml" filepath="$PROJECT_DIR$/BESTVotacions-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ParseLoginUI/ParseLoginUI.iml" filepath="$PROJECT_DIR$/ParseLoginUI/ParseLoginUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datasource/datasource.iml" filepath="$PROJECT_DIR$/datasource/datasource.iml" />
+    </modules>
+  </component>
+</project>
