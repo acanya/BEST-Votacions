@@ -23,7 +23,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import org.bestbarcelona.votacions.datasource.BVPoll;
 import org.bestbarcelona.votacions.datasource.DataSourceCallBack;
 import org.bestbarcelona.votacions.datasource.DataSourceController;
@@ -92,6 +91,13 @@ public class CreatePollActivity extends ActionBarActivity implements TimePickerD
         if (id == android.R.id.home) {
             onBackPressed();
             return true;
+        }
+        if (id ==R.id.action_copy){
+            Context context = getApplicationContext();
+            CharSequence textToast = "This action is not implemented yet";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, textToast, duration);
+            toast.show();
         }
 
 

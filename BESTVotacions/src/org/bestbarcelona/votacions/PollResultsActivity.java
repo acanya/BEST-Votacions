@@ -31,7 +31,7 @@ import java.util.List;
 
 
 public class PollResultsActivity extends ActionBarActivity {
-    private Number totalNumVotes;
+    public Number totalNumVotes;
     private BVPoll actualPoll;
     private PollResultsAdapter resultsAdapter;
     private PollVotersAdapter votersAdapter;
@@ -40,7 +40,9 @@ public class PollResultsActivity extends ActionBarActivity {
     private String PollID;
     private ArrayList<BVCandidate> candidatesArray;
     private ArrayList<BVVote> votesArray;
+    public boolean numbers; //if true- show numbers, if false, show percentage
 
+    private PollResultsAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,7 @@ public class PollResultsActivity extends ActionBarActivity {
         final TextView numVotesTextView = (TextView)findViewById(R.id.tvVotes);
         cand = (ListView) findViewById(R.id.CandidatesListView1);
         voters = (ListView) findViewById(R.id.listViewVoters);
-
+        numbers=true;
         DataSourceController.getInstance().countVotes(actualPoll, new DataSourceCallBackLong() {
             @Override
             public void handleDatasourceCallBack(List candidates, List votes, Number totalVotes, Boolean success) {
@@ -75,7 +77,7 @@ public class PollResultsActivity extends ActionBarActivity {
                     @Override
                     public void run() {
                         votersAdapter = new PollVotersAdapter(PollResultsActivity.this, votesArray);
-                        resultsAdapter = new PollResultsAdapter(PollResultsActivity.this, candidatesArray);
+                        resultsAdapter = new PollResultsAdapter(PollResultsActivity.this, candidatesArray, totalNumVotes,numbers);
                         voters.setAdapter(votersAdapter);
                         cand.setAdapter(resultsAdapter);
                         numVotesTextView.setText(String.valueOf(totalNumVotes));
@@ -86,7 +88,12 @@ public class PollResultsActivity extends ActionBarActivity {
         });
 
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_poll_results, menu);
+        return true;
+    }
     public void showToastWithText(String text) {
         Context context = getApplicationContext();
         CharSequence textToast = text;
@@ -101,6 +108,27 @@ public class PollResultsActivity extends ActionBarActivity {
         if (id == android.R.id.home) {
             onBackPressed();
         }
+        if (id ==R.id.change_view){
+            numbers= !numbers;
+            String text;
+            if (numbers){
+                text = "view as numbers";
+            }
+            else {
+                text = "view as percentage";
+            }
+            showToastWithText(text);
+            setAdapter();
+
+        }
         return true;
+    }
+    public void setAdapter (){
+
+            final ListView listView = (ListView) findViewById(R.id.CandidatesListView1);
+            adapter = new PollResultsAdapter(PollResultsActivity.this, candidatesArray, totalNumVotes,numbers);
+            listView.setAdapter(adapter);
+            registerForContextMenu(listView);
+
     }
 }

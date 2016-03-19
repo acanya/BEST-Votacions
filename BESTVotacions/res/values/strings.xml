@@ -20,4 +20,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="no_internet_detected">No Internet connection detected</string>
+    <string name="Copy_poll">Copy information</string>
+    <string name="change_view">Change view</string>
 </resources>

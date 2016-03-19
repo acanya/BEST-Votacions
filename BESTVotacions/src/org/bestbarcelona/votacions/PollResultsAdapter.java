@@ -15,14 +15,19 @@ import org.bestbarcelona.votacions.datasource.BVCandidate;
 import org.bestbarcelona.votacions.datasource.BVPoll;
 import org.bestbarcelona.votacions.datasource.DataSourceController;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
  * Created by Laia on 11/08/2015.
  */
 public class PollResultsAdapter extends ArrayAdapter<BVCandidate> {
-    public PollResultsAdapter(Context context, ArrayList<BVCandidate> candidates) {
+    boolean showNumber;
+    Number votes;
+    public PollResultsAdapter(Context context, ArrayList<BVCandidate> candidates,Number totalVotes,boolean number) {
         super(context, 0, candidates);
+        votes=totalVotes;
+        showNumber=number;
     }
 
     @Override
@@ -36,7 +41,19 @@ public class PollResultsAdapter extends ArrayAdapter<BVCandidate> {
         final TextView candTV = (TextView) convertView.findViewById(R.id.candidateName);
         final TextView votesTV = (TextView) convertView.findViewById(R.id.candidateVotes);
         candTV.setText(candidate.getName());
-        votesTV.setText(String.valueOf (candidate.getTotalVotes()));
+
+        double percentvotes = (candidate.getTotalVotes().intValue() / votes.doubleValue())*100;
+
+        DecimalFormat myFormat = new DecimalFormat("0.00");
+        String votesTVtext = String.valueOf(candidate.getTotalVotes());
+        String percentTVtext = myFormat.format(percentvotes)+"%";
+        if (showNumber) {
+            votesTV.setText(votesTVtext);
+        }
+        else {
+            votesTV.setText(percentTVtext);
+
+        }
         // Return the completed view to render on screen
         return convertView;
     }
