@@ -1,18 +1,16 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.parse'
 
 buildscript {
   repositories {
     mavenCentral()
-    maven { url 'https://maven.parse.com/repo' }
   }
   dependencies {
-    classpath 'com.parse.tools:gradle:1.+'
   }
 }
 
 dependencies {
     compile 'com.parse.bolts:bolts-android:1.1.4'
+    compile 'com.parse:parse-android:1.+'
     compile fileTree(include: 'Parse-*.jar', dir: 'libs')
     compile fileTree(include: 'ParseCrashReporting-*.jar', dir: 'libs')
 
